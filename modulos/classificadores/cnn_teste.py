@@ -75,7 +75,7 @@ def matriz_confusao(rotulos_verdadeiros, rotulos_previstos, nomes_das_classes, c
     plt.xlabel('Rótulos Previstos')
     plt.ylabel('Rótulos Reais')
     plt.title('Matriz de confusão', fontsize=18, weight='bold', x=0.5, y=1.05)
-    plt.suptitle(f"Acurácia do Modelo: {acuracia:.2f}%", fontsize=14, x=0.435, y=0.92)
+    plt.suptitle(f"Acurácia do Modelo: {acuracia:.2f}%", fontsize=12, x=0.45, y=0.90)
     plt.tight_layout()
     plt.savefig(caminho_resultados /'Matriz_Confusao', dpi=300)
     print(f'\nMatriz salva na pasta {caminho_resultados}\n')
@@ -105,7 +105,7 @@ def plot_metrica(rotulos_verdadeiros, rotulos_previstos, nome_metrica, nomes_das
     for index, value in enumerate(metric_data.values()):
         plt.text(index, value, str(round(value, 2)), ha='center', va='bottom')
     # Salvar figura
-    plt.savefig(caminho_resultados / nome_metrica, dpi=300)
+    plt.savefig(caminho_resultados / f"{nome_metrica}.png", dpi=300, bbox_inches="tight")
     print(f'\nMétrica salva na pasta: {caminho_resultados}\n')
     #plt.show()
     plt.close()

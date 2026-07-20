@@ -210,3 +210,114 @@ def run():
                         caption="Histórico do treinamento",
                         width=800
                     )
+
+    # ==========================================================
+    # ABA - TESTE
+    # ==========================================================
+    with tab_teste:
+        st.subheader('Teste do Modelo CNN')
+
+        # Criando botão
+        testar = st.button(
+            "Executar Teste",
+            type='primary',
+            width='stretch'
+        )
+
+        # Pipeline de teste
+        if testar:
+            with st.spinner("Testeando modelo..."):
+
+                # 1 - Carregando iamgens de teste
+                imagens_teste = cnn_teste.obter_imagens_teste(
+                    IMG_TEST_DIR,
+                    IMG_FORM,
+                    BATCH_SIZE
+                )
+
+                # 2 - Carregando modelo treinado
+                modelo = cnn_teste.carregar_modelo_cnn_treinado(
+                    MODEL_CNN_DIR
+                )
+
+                # 3 - Fazer Previsão
+                rotulos_previstos = cnn_teste.testar_modelo(
+                    modelo,
+                    imagens_teste
+                )
+
+                # 5 - Obtendo tórulos reais
+                rotulos_verdadeiros = imagens_teste.classes
+
+                # 6 - Nome das classes
+                nome_classes = list(imagens_teste.class_indices.keys())
+
+                # 7- Gráficos das métricas
+                cnn_teste.plot_metrica(
+                    rotulos_verdadeiros,
+                    rotulos_previstos,
+                    "precision",
+                    nome_classes,
+                    RESULTS_DIR
+                )
+
+                cnn_teste.plot_metrica(
+                    rotulos_verdadeiros,
+                    rotulos_previstos,
+                    "recall",
+                    nome_classes,
+                    RESULTS_DIR
+                )
+
+                cnn_teste.plot_metrica(
+                    rotulos_verdadeiros,
+                    rotulos_previstos,
+                    "f1-score",
+                    nome_classes,
+                    RESULTS_DIR
+                )
+
+                st.subheader("Metricas por Classe")
+
+                col1, col2, col3 = st.columns(3)
+
+                with col1:
+                    imagem = RESULTS_DIR / 'precision.png'
+                    if imagem.exists():
+                        st.image(
+                            imagem,
+                            caption="Precision"
+                        )
+
+                with col2:
+                    imagem = RESULTS_DIR / 'recall.png'
+                    if imagem.exists():
+                        st.image(
+                            imagem,
+                            caption='Recall'
+                        )
+
+                with col3:
+                    imagem = RESULTS_DIR / 'f1-score.png'
+                    if imagem.exists():
+                        st.image(
+                            imagem,
+                            caption='F1-Score'
+                        )
+
+                # 9 - Matriz de confusão
+                cnn_teste.matriz_confusao(
+                    rotulos_verdadeiros,
+                    rotulos_previstos,
+                    nome_classes,
+                    RESULTS_DIR
+                )
+
+                imagem = RESULTS_DIR / 'Matriz_Confusao.png'
+
+                if imagem.exists():
+                    st.subheader("Matriz de Confusão")
+                    st.image(
+                        imagem,
+                        width='stretch'
+                    )
