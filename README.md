@@ -1,5 +1,3 @@
-conda create -n classificacao_cnn python=3.10
-
 # ☕ Classificação de Grãos de Café utilizando CNN e Transfer Learning
 
 ## 📌 Sobre o projeto
@@ -16,6 +14,14 @@ A aplicação possui uma interface desenvolvida em **Streamlit**, permitindo:
 - Acompanhamento das métricas de treinamento;
 - Avaliação do modelo em dados de teste;
 - Visualização de métricas de classificação e matriz de confusão.
+
+![gif1](images_README/gif1.gif)
+
+![gif2](images_README/gif2.gif)
+
+![gif3](images_README/gif3.gif)
+
+![gif4](images_README/gif4.gif)
 
 ---
 

@@ -30,7 +30,7 @@ def run():
 
     st.markdown('''
     Este sistema permite utilizar um sistema de CNN já pré-treinada, neste caso utilizaremos
-    a MobileNetV2, e utilizando a técnica de Transfer Learning faremos a extração de caracteristica 
+    a MobileNetV2, e utilizando a técnica de Transfer Learning onde faremos a extração de caracteristica 
     e a classificação das imagens.
     ''')
 
