@@ -1,3 +1,4 @@
+conda create -n classificacao_cnn python=3.10
 
 # ☕ Classificação de Grãos de Café utilizando CNN e Transfer Learning
 
@@ -72,15 +73,183 @@ A arquitetura utilizada:
 # 📂 Estrutura do projeto
 
 ```
-classificacao_cnn
+classificacao_cnn/
 │
-├── checkpoints/                      # Arquivo .h5 com os checkpoints do modelo
+├── main.py							# Arquivo principal apra execução do projeto
+├── README.md
+├── LICENSE
+├── requirements.txt
 │
-├── datasets/                         # Pasta com os datasets separados por train, test e validation nas proporções (80%, 10%, 10%)
-│   ├── coffee_bean/
-│   │   ├── test/
-│   │   │   ├── Dark/
-│   │   │   ├── Green/
-│   │   │   ├── Light/
-│   │   │   ├── Medium/
+├── modulos/
+│   ├── classificadores/
+│   └── utils/
+│
+├── datasets/
+│   └── coffee_bean/
+│       └── fonte_do_dataset.txt
+│
+├── modelos/
+│   └── README.md
+│
+├── log/
+│   └── README.md
+│
+├── resultados/
+│   └── README.md
+│
+└── .gitignore
 ```
+
+---
+
+# 📊 Dataset
+
+Dataset utilizado:
+
+**Coffee Bean Dataset Resized 224x224**
+
+Fonte:
+
+https://www.kaggle.com/datasets/gpiosenka/coffee-bean-dataset-resized-224-x-224
+
+O dataset possui imagens classificadas em quatro categorias:
+
+| Classe | Descrição             |
+| ------ | ----------------------- |
+| Dark   | Grãos torrados escuros |
+| Green  | Grãos verdes           |
+| Light  | Grãos de torra clara   |
+| Medium | Grãos de torra média  |
+
+---
+
+# ⚙️ Tecnologias utilizadas
+
+## Linguagem
+
+- Python 3.10
+
+## Deep Learning
+
+- TensorFlow
+- Keras
+- MobileNetV2
+
+## Processamento de dados
+
+- NumPy
+- Pandas
+- Scikit-learn
+
+## Visualização
+
+- Matplotlib
+- Seaborn
+
+## Interface
+
+- Streamlit
+
+---
+
+# 📦 Instalação
+
+Clone o repositório:
+
+```Shell
+git clone https://github.com/Joao-gui/classificacao_cnn.git
+```
+
+Entre na pasta do projeto:
+
+```Shell
+cd classificacao_cnn
+```
+
+Crie o ambiente:
+
+```Shell
+conda create -n classificacao_cnn python=3.10
+```
+
+Ative:
+
+```Shell
+conda activate classificacao_cnn
+```
+
+instale as dependências:
+
+```Shell
+pip install -r requirements.txt
+```
+
+---
+
+# ▶️ Executando o projeto
+
+Execute:
+
+```Shell
+streamlit run main.py
+```
+
+A aplicação será aberta no navegador.
+
+---
+
+# 🏋️ Treinamento do modelo
+
+Na aba **Trenamento** é possivel configurar:
+
+* Batch size;
+* Número de épocas;
+
+O pipeline realiza:
+
+1. Carregamento das imagens;
+2. Aplicação de data augmentation;
+3. Criação da arquitetura CNN;
+4. Compilação do modelo;
+5. Treinamento;
+6. Salvamaneto dos melhores pesos;
+7. Exportação do modelo final.
+
+Durante o treinamento são gerados:
+
+* Histórico de acurácia;
+* Histórico de loss;
+* Arquivo de log;
+* Checkpoints
+
+---
+
+# 🧪 Avaliação do modelo
+
+Na aba **Teste,** o modelo treinado é carregado e avaliado.
+
+São gerados:
+
+## Acuracy
+
+Mede a porcentagemk de classificações corretas.
+
+## Classification Report
+
+Com:
+
+* Precision;
+* Recall;
+* F1-Score.
+
+## Matriz de Confusão
+
+Premite analisar os erros entre as classes.
+
+---
+
+# 👨‍💻 Autor
+
+João Guilherme - Desenvolvedor IA -  [github.com/Joao-gui](https://github.com/Joao-gui?)
+
+⭐ Se este projeto foi útil para você, considere dar uma estrela! ⭐
