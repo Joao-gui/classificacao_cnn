@@ -1,6 +1,8 @@
 .conda
-*.png
+/datasets/coffee_bean/test/*/*
+/datasets/coffee_bean/train/*/*
+/datasets/coffee_bean/val/*/*
+#*.png
 .vscode
 *.pkl
 *.keras
-*.csv
