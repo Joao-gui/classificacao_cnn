@@ -1,8 +1,111 @@
-.conda
-/datasets/coffee_bean/test/*/*
-/datasets/coffee_bean/train/*/*
-/datasets/coffee_bean/val/*/*
-#*.png
-.vscode
-*.pkl
+# ==========================================================
+# Ambientes Python
+# ==========================================================
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+.env
+
+# Conda environments
+.conda/
+
+
+# ==========================================================
+# Cache Python
+# ==========================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# ==========================================================
+# Jupyter / Notebooks
+# ==========================================================
+
+.ipynb_checkpoints/
+
+
+# ==========================================================
+# Dataset
+# ==========================================================
+
+# Ignorar imagens do dataset
+datasets/*/train/*
+datasets/*/val/*
+datasets/*/test/*
+
+# Caso queira manter a estrutura das pastas
+!datasets/*/train/.gitkeep
+!datasets/*/val/.gitkeep
+!datasets/*/test/.gitkeep
+
+# Arquivos auxiliares do dataset podem ficar
+# datasets/*/fonte_do_dataset.txt
+
+
+# ==========================================================
+# Modelos treinados
+# ==========================================================
+
+# Modelos TensorFlow/Keras
 *.keras
+*.h5
+*.hdf5
+
+# Pesos
+*.weights
+*.weights.h5
+
+# Checkpoints
+checkpoints/
+
+
+# ==========================================================
+# Logs de treinamento
+# ==========================================================
+
+log/
+*.log
+*.csv
+
+
+# ==========================================================
+# Resultados gerados
+# ==========================================================
+
+resultados/
+*.png
+*.jpg
+
+
+# ==========================================================
+# Streamlit
+# ==========================================================
+
+.streamlit/secrets.toml
+
+
+# ==========================================================
+# Sistema operacional
+# ==========================================================
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+
+# ==========================================================
+# IDEs
+# ==========================================================
+
+.vscode/
+.idea/
