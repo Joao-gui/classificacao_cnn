@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
+import io
 
 # Obtendo imagens para treino
 def obter_imagens_treino(caminho_imagens_treino, forma_img, tam_lote):
@@ -61,12 +62,12 @@ def obter_imagens_validacao(caminho_imagens_validacao, forma_img, tam_lote):
     return imagens_validacao
 
 # Obtendo modelo de CNN
-def obter_modelo_cnn(num_classes):
+def obter_modelo_cnn(num_classes, forma_img):
     # Define um seed para garantir que os resultados sejam reproduzíveis.
     tf.random.set_seed(42)
 
-    # Define a forma das imagens de entrada: 224x224 pixels com 3 canais (RGB).
-    forma_img=(224,224,3)
+    # Define a forma das imagens de entrada: Padrão MoobileNetV2 224x224 pixels com 3 canais (RGB).
+    forma_img=forma_img
 
     # Carrega o modelo MobileNetV2 pré-treinado com pesos do ImageNet.
     # include_top=False significa que a camada final de classificação (top) 
@@ -124,10 +125,14 @@ def obter_modelo_cnn(num_classes):
     # Cria o modelo final, conectando a camada de entrada à camada de saída.
     modelo = keras.Model(camada_entrada, camada_saida)
 
-    # Exibe um resumo do modelo, mostrando as camadas e o número de parâmetros treináveis.
-    modelo.summary()
+    buffer = io.StringIO()
 
-    return modelo
+    # Exibe um resumo do modelo, mostrando as camadas e o número de parâmetros treináveis.
+    modelo.summary(print_fn=lambda x: buffer.write(x + '\n'))
+
+    resumo_modelo = buffer.getvalue()
+    
+    return modelo, resumo_modelo
 
 # Compilando modelo de cnn
 def compilar_modelo_cnn(modelo, metrica):
@@ -136,15 +141,15 @@ def compilar_modelo_cnn(modelo, metrica):
     # define a função para o cálculo do loss (erro entre o valor previsto e o esperado)
     loss=keras.losses.CategoricalCrossentropy()
     # o modelo é configurado com essas informações e está pronto para ser treinado
-    modelo.compile(optimizer=otimizador, loss=loss, metrics=metrica)
+    modelo.compile(optimizer=otimizador, loss=loss, metrics=[metrica])
     return modelo
 
 # Treinando o modelo
-def treinar_modelo(modelo, imagens_treino, imanges_validacao, num_epocas, caminho_checkpoints, lista_callbacks):
+def treinar_modelo(modelo, imagens_treino, imagens_validacao, num_epocas, caminho_checkpoints, lista_callbacks):
     # realiza o treinamento do modelo utilizando os dados de treinamento para o aprendizado
     # e os dados de validação para auxiliar no cálculos dos pesos do modelo a cada época
     # e executa as funções presentes na lista de callbacks
-    historico = modelo.fit(imagens_treino, epochs=num_epocas, verbose=1, validation_data=imanges_validacao,
+    historico = modelo.fit(imagens_treino, epochs=num_epocas, verbose=1, validation_data=imagens_validacao,
                         callbacks=lista_callbacks)
     # Os melhores pesos armazenados nos checkpoints são carregados no modelo
     modelo.load_weights(caminho_checkpoints)
@@ -153,7 +158,7 @@ def treinar_modelo(modelo, imagens_treino, imanges_validacao, num_epocas, caminh
 # Plotagem historico
 def plot_historico(historico, metrica, caminho_resultados):
     # plota a evolução da acurácia e loss ao longo das épocas de treinamento
-    plt.figure(1)
+    plt.figure(figsize=(8,8))
     # accuracy
     plt.subplot(211)
     plt.plot(historico.history[metrica])
@@ -171,7 +176,7 @@ def plot_historico(historico, metrica, caminho_resultados):
     plt.xlabel('Época')
     plt.legend(['Treinamento', 'Validação'], loc='upper right')
     plt.tight_layout()
-    plt.savefig(caminho_resultados+'Historico_Treinamento', dpi=300)
+    plt.savefig(caminho_resultados / 'Historico_Treinamento', dpi=300)
     print(f'\nHistórico salvo na pasta: {caminho_resultados}\n')
     #plt.show()
     plt.close()
