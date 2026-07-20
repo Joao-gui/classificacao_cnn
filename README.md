@@ -101,7 +101,6 @@ classificacao_cnn/
 │   └── README.md
 │
 ├── resultados/
-│   └── README.md
 │
 └── .gitignore
 ```
@@ -238,7 +237,7 @@ São gerados:
 
 ## Acuracy
 
-Mede a porcentagemk de classificações corretas.
+Mede a porcentagem de classificações corretas.
 
 ## Classification Report
 
@@ -250,7 +249,7 @@ Com:
 
 ## Matriz de Confusão
 
-Premite analisar os erros entre as classes.
+Permite analisar os erros entre as classes.
 
 ---
 
