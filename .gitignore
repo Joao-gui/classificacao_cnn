@@ -2,3 +2,5 @@
 *.png
 .vscode
 *.pkl
+*.keras
+*.csv
